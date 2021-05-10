@@ -1,11 +1,11 @@
 const mongoose = require('mongoose')
 
-const exampleSchema = new mongoose.Schema({
+const postSchema = new mongoose.Schema({
   title: {
     type: String,
     required: true
   },
-  text: {
+  body: {
     type: String,
     required: true
   },
@@ -17,5 +17,6 @@ const exampleSchema = new mongoose.Schema({
 }, {
   timestamps: true
 })
+// later will add in images and/or comments
 
-module.exports = mongoose.model('Example', exampleSchema)
+module.exports = mongoose.model('Post', postSchema)
