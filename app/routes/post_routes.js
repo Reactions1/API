@@ -33,9 +33,10 @@ const router = express.Router()
 // INDEX
 // GET /examples
 router.get('/posts', requireToken, (req, res, next) => {
+  const owner = req.user._id
   console.log(req)
   // console.log(req.user._id)
-  Post.find({})
+  Post.find({owner: owner})
     .populate('owner', 'email')
     .then(posts => {
       // `posts` will be an array of Mongoose documents
