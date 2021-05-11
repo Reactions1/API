@@ -156,4 +156,15 @@ router.delete('/sign-out', requireToken, (req, res, next) => {
     .catch(next)
 })
 
+// SHOW
+// GET /examples/5a7db6c74d55bc51bdf39793
+router.get('/users/:id', requireToken, (req, res, next) => {
+  // req.params.id will be set based on the `:id` in the route
+  User.findById(req.params.id)
+    // if `findById` is succesful, respond with 200 and "example" JSON
+    .then(user => res.status(200).json({ user: user.toObject() }))
+    // if an error occurs, pass it to the handler
+    .catch(next)
+})
+
 module.exports = router
