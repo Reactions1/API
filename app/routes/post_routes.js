@@ -6,6 +6,9 @@ const passport = require('passport')
 // pull in Mongoose model for examples
 const Post = require('../models/post')
 
+// pull in Mongoose model for Users
+// const User = require('../models/user')
+
 // this is a collection of methods that help us detect situations when we need
 // to throw a custom error
 const customErrors = require('../../lib/custom_errors')
@@ -31,6 +34,7 @@ const router = express.Router()
 // GET /examples
 router.get('/posts', requireToken, (req, res, next) => {
   const owner = req.user._id
+  console.log(req)
   // console.log(req.user._id)
   Post.find({owner: owner})
     .populate('owner', 'email')
