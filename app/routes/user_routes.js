@@ -114,6 +114,23 @@ router.get('/users', requireToken, (req, res, next) => {
     .catch(next)
 })
 
+// INDEX
+// GET /get all of one user
+router.get('/users/:id', requireToken, (req, res, next) => {
+  const id = req.params.id
+  User.find({id: id})
+    .then(users => {
+      // `posts` will be an array of Mongoose documents
+      // we want to convert each one to a POJO, so we use `.map` to
+      // apply `.toObject` to each one
+      return users.map(user => user.toObject())
+    })
+    // respond with status 200 and JSON of the examples
+    .then(users => res.status(200).json({ users: users }))
+    // if an error occurs, pass it to the handler
+    .catch(next)
+})
+
 // CHANGE password
 // PATCH /change-password
 router.patch('/change-password', requireToken, (req, res, next) => {

@@ -50,17 +50,37 @@ router.get('/posts', requireToken, (req, res, next) => {
     .catch(next)
 })
 
-// SHOW
-// GET /examples/5a7db6c74d55bc51bdf39793
+// INDEX ANOTHER USERS WALL POSTS
+// GET FOR ONE USER
 router.get('/posts/:id', requireToken, (req, res, next) => {
-  // req.params.id will be set based on the `:id` in the route
-  Post.findById(req.params.id)
-    .then(handle404)
-    // if `findById` is succesful, respond with 200 and "example" JSON
-    .then(post => res.status(200).json({ post: post.toObject() }))
+  const owner = req.params.id
+  console.log(req.params.id)
+  // console.log(req.user._id)
+  Post.find({owner: owner})
+    .populate('owner', 'email')
+    .then(posts => {
+      // `posts` will be an array of Mongoose documents
+      // we want to convert each one to a POJO, so we use `.map` to
+      // apply `.toObject` to each one
+      return posts.map(post => post.toObject())
+    })
+    // respond with status 200 and JSON of the examples
+    .then(posts => res.status(200).json({ posts: posts }))
     // if an error occurs, pass it to the handler
     .catch(next)
 })
+
+// // SHOW
+// // GET /examples/5a7db6c74d55bc51bdf39793
+// router.get('/posts/:id', requireToken, (req, res, next) => {
+//   // req.params.id will be set based on the `:id` in the route
+//   Post.findById(req.params.id)
+//     .then(handle404)
+//     // if `findById` is succesful, respond with 200 and "example" JSON
+//     .then(post => res.status(200).json({ post: post.toObject() }))
+//     // if an error occurs, pass it to the handler
+//     .catch(next)
+// })
 
 // CREATE
 // POST /examples
