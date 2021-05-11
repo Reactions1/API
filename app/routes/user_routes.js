@@ -99,8 +99,7 @@ router.post('/sign-in', (req, res, next) => {
 
 // INDEX
 // GET /examples
-router.get('/users', (req, res, next) => {
-  console.log(req.users)
+router.get('/users', requireToken, (req, res, next) => {
   // console.log(req.user._id)
   User.find({})
     .then(users => {
