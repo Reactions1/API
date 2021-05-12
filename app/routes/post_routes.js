@@ -50,6 +50,24 @@ router.get('/posts', requireToken, (req, res, next) => {
     .catch(next)
 })
 
+// ALL POSTS FROM ALL USERS
+// GET /posts
+router.get('/allposts', requireToken, (req, res, next) => {
+  // console.log(req.user._id)
+  Post.find()
+    .populate('owner', 'email')
+    .then(posts => {
+      // `posts` will be an array of Mongoose documents
+      // we want to convert each one to a POJO, so we use `.map` to
+      // apply `.toObject` to each one
+      return posts.map(post => post.toObject())
+    })
+    // respond with status 200 and JSON of the examples
+    .then(posts => res.status(200).json({ posts: posts }))
+    // if an error occurs, pass it to the handler
+    .catch(next)
+})
+
 // INDEX ANOTHER USERS WALL POSTS
 // GET FOR ONE USER
 router.get('/posts/:id', requireToken, (req, res, next) => {
