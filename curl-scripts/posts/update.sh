@@ -11,7 +11,8 @@ curl "${API}${URL_PATH}/${ID}" \
 --data '{
     "post": {
       "title": "'"${TITLE}"'",
-      "body": "'"${BODY}"'"
+      "body": "'"${BODY}"'",
+      "likes": "'"${LIKES}"'"
     }
   }'
 
