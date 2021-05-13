@@ -97,40 +97,6 @@ router.post('/sign-in', (req, res, next) => {
     .catch(next)
 })
 
-// INDEX
-// GET /examples
-router.get('/users', requireToken, (req, res, next) => {
-  // console.log(req.user._id)
-  User.find({})
-    .then(users => {
-      // `posts` will be an array of Mongoose documents
-      // we want to convert each one to a POJO, so we use `.map` to
-      // apply `.toObject` to each one
-      return users.map(user => user.toObject())
-    })
-    // respond with status 200 and JSON of the examples
-    .then(users => res.status(200).json({ users: users }))
-    // if an error occurs, pass it to the handler
-    .catch(next)
-})
-
-// INDEX
-// GET /get all of one user
-router.get('/users/:id', requireToken, (req, res, next) => {
-  const id = req.params.id
-  User.find({id: id})
-    .then(users => {
-      // `posts` will be an array of Mongoose documents
-      // we want to convert each one to a POJO, so we use `.map` to
-      // apply `.toObject` to each one
-      return users.map(user => user.toObject())
-    })
-    // respond with status 200 and JSON of the examples
-    .then(users => res.status(200).json({ users: users }))
-    // if an error occurs, pass it to the handler
-    .catch(next)
-})
-
 // CHANGE password
 // PATCH /change-password
 router.patch('/change-password', requireToken, (req, res, next) => {
@@ -169,17 +135,6 @@ router.delete('/sign-out', requireToken, (req, res, next) => {
   // save the token and respond with 204
   req.user.save()
     .then(() => res.sendStatus(204))
-    .catch(next)
-})
-
-// SHOW
-// GET /examples/5a7db6c74d55bc51bdf39793
-router.get('/users/:id', requireToken, (req, res, next) => {
-  // req.params.id will be set based on the `:id` in the route
-  User.findById(req.params.id)
-    // if `findById` is succesful, respond with 200 and "example" JSON
-    .then(user => res.status(200).json({ user: user.toObject() }))
-    // if an error occurs, pass it to the handler
     .catch(next)
 })
 
