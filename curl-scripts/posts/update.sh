@@ -1,6 +1,6 @@
 #!/bin/bash
 
-API="https://vast-dawn-05766.herokuapp.com"
+API="http://localhost:4741"
 URL_PATH="/posts"
 
 curl "${API}${URL_PATH}/${ID}" \
@@ -11,8 +11,7 @@ curl "${API}${URL_PATH}/${ID}" \
 --data '{
     "post": {
       "title": "'"${TITLE}"'",
-      "body": "'"${BODY}"'",
-      "likes": "'"${LIKES}"'"
+      "body": "'"${BODY}"'"
     }
   }'
 
