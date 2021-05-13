@@ -1,7 +1,7 @@
 #!/bin/sh
 
 API="https://vast-dawn-05766.herokuapp.com"
-URL_PATH="/posts"
+URL_PATH="/users"
 
 curl "${API}${URL_PATH}/${ID}" \
   --include \

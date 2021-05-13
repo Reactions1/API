@@ -9,6 +9,9 @@ const postSchema = new mongoose.Schema({
     type: String,
     required: true
   },
+  likes: {
+    type: Number
+  },
   owner: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
