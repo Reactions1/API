@@ -31,10 +31,10 @@ const requireToken = passport.authenticate('bearer', { session: false })
 const router = express.Router()
 
 // INDEX
-// GET /examples
+// GET
 router.get('/posts', requireToken, (req, res, next) => {
   const owner = req.user._id
-  console.log(req)
+  // console.log(req)
   // console.log(req.user._id)
   Post.find({owner: owner})
     .populate('owner', 'email')
@@ -72,7 +72,7 @@ router.get('/allposts', requireToken, (req, res, next) => {
 // GET FOR ONE USER
 router.get('/posts/:id', requireToken, (req, res, next) => {
   const owner = req.params.id
-  console.log(req.params.id)
+  //  console.log(req.params.id)
   // console.log(req.user._id)
   Post.find({owner: owner})
     .populate('owner', 'email')
